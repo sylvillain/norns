@@ -117,6 +117,7 @@ local function write_pset(name)
     m.ps_last = i
     write_pset_last(i) -- save last pset loaded
     init_pset()
+    --TODO: possibly track global "multimap" for writing here
     norns.pmap.write() -- write parameter map too
   end
 end
@@ -537,6 +538,9 @@ m.redraw = function()
     local t = params:t(p)
     local pm = norns.pmap.data[n]
 
+    -- TODO: handle understanding whether multimap is on
+    local mmap = 0
+
     local out_lo = pm.out_lo
     local out_hi = pm.out_hi
 
@@ -555,6 +559,7 @@ m.redraw = function()
     screen.text_right(params:string(p))
     screen.move(0,22)
     hl(1)
+    -- TODO: probably something here....
     if m.midilearn then screen.text("LEARNING") else screen.text("LEARN") end
     screen.move(127,22)
     hl(2)
@@ -697,6 +702,7 @@ _menu.rebuild_params = function()
   end
 end
 
+-- TODO: this is where midi events are handled for learning
 norns.menu_midi_event = function(data, dev)
   local ch = data[1] - 175
   local cc = data[2]

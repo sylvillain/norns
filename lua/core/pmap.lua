@@ -22,12 +22,15 @@ function pmap.new(id)
   pmap.data[id] = p
 end
 
+-- TODO: this will need to be a aware of multi-mapping
 function pmap.remove(id)
   local p = pmap.data[id]
   if p then pmap.rev[p.dev][p.ch][p.cc] = nil end
   pmap.data[id] = nil
 end
 
+-- TODO: in order for multimap to be a thing, this will require a table
+-- or a custom data container
 function pmap.assign(id, dev, ch, cc)
   local prev = pmap.rev[dev][ch][cc]
   if prev and prev ~= id then 
